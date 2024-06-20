@@ -130,7 +130,6 @@ GM_addStyle(`
           const parts = line.split(/(\d+\s*[\+\-\*\/]\s*\d+|\d+)/); // 分离文字和数字表达式
           const text = parts[0].trim();
           const expression = parts.slice(1).join('').trim();
-          console.log('safdsfa', expression)
           try {
             const number = math.evaluate(expression);
             return { text, number };
@@ -267,10 +266,8 @@ GM_addStyle(`
       if (input === null) {
           return false;
       }
-      console.log(`${input}`);
       // 解析文本并输出结果
       const result = parseInput(input);
-      console.log(result);
       if(typeof result.total === 'number' && result.total > 0 && result.content.length > 0 ) {
           const confirmText = `\n处理人：${user} \n总工时: ${result.total}\n\n详情如下:\n${result.content.map(item => `${item.text}: ${item.number}`).join('\n')}`
 
