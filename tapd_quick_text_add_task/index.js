@@ -281,7 +281,7 @@
         const result = parseInput(input);
         if(typeof result.total === 'number' && result.total > 0 && result.content.length > 0 ) {
             const {days, hours} = calculateDaysAndHours(result.total);
-            const confirmText = `\n处理人：${user} \n总工时: ${result.total} -> ${days > 0 ? days + '天' : ''}${hours > 0 ? '多' + hours + '小时': ''}\n\n详情如下:\n${result.content.map(item => `${item.text}: ${item.number}`).join('\n')}`
+            const confirmText = `\n处理人：${user} \n总工时: ${result.total} -> ${days > 0 ? days + '天' : ''}${days && hours ? '多' : ''}${hours > 0 ? hours + '小时': ''}\n\n详情如下:\n${result.content.map(item => `${item.text}: ${item.number}`).join('\n')}`
             const res = confirm(`确认录入以下内容吗？\n ${confirmText}`);
             // 根据用户的选择进行不同的操作
             if (res) {
