@@ -272,7 +272,6 @@ GM_addStyle(`
           const confirmText = `\n处理人：${user} \n总工时: ${result.total}\n\n详情如下:\n${result.content.map(item => `${item.text}: ${item.number}`).join('\n')}`
 
           const res = confirm(`确认录入以下内容吗？\n ${confirmText}`);
-          // 根据用户的选择进行不同的操作
           if (res) {
             callApiSequentially(result.content, result.total)
           }
