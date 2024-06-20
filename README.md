@@ -3,7 +3,8 @@
 
 
 ## [tapd_quick_text_add_task](./tapd_quick_text_add_task/README.md)
-粘贴文本快速创建任务, 支持根据数学表达式计算工时
+粘贴文本快速创建tapd拆分任务, 支持根据数学表达式计算工时
+
 
 ## [wechat_mini_publish_state_push](./wechat_mini_publish_state_push/README.md)
 微信小程序审核状态推送至企业微信群机器人
