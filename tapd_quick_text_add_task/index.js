@@ -131,7 +131,7 @@
             const text = parts[0].trim();
             const expression = parts.slice(1).join('').trim();
             try {
-              const number = math.evaluate(expression);
+              const number = unsafeWindow.top.math.evaluate(expression);
               return { text, number };
             } catch (error) {
               console.log(error)
@@ -191,6 +191,12 @@
         // 将数组中的键值对连接成字符串
         return queryString.join('&');
     }
+    // 获取cookie
+    function getCookie(name) {
+        let pattern = new RegExp('(^|; )' + encodeURIComponent(name) + '=([^;]*)');
+        let match = document.cookie.match(pattern);
+        return match ? decodeURIComponent(match[2]) : null;
+    }
 
     async function addTask(item) {
         const json = {
@@ -212,7 +218,7 @@
                 "accept-language": "zh-CN,zh;q=0.9",
                 "cache-control": "no-cache",
                 "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "dsc-token": "TLhP4Ec1Do9SUy6t",
+                "dsc-token": getCookie("dsc-token"),
                 "pragma": "no-cache",
                 "sec-ch-ua": "\"Not/A)Brand\";v=\"8\", \"Chromium\";v=\"126\", \"Google Chrome\";v=\"126\"",
                 "sec-ch-ua-mobile": "?0",
