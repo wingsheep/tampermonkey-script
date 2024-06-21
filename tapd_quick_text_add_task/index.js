@@ -328,7 +328,6 @@
     }
     window.addEventListener('load', () => {
          observeElement('#div_task_list');
-         addMask()
     });
   })();
   
