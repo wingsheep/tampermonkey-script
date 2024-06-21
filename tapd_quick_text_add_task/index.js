@@ -10,14 +10,14 @@
 
 (function() {
     'use strict';
-  
+
     let title = ''
     let storyId = ''
     let workId = ''
     let user = ''
-  
+
   GM_addStyle(`
-  
+
   /* 遮罩层样式 */
         #overlay {
             position: fixed;
@@ -42,7 +42,7 @@
           font-weight: 600;
           font-size: 18px;
         }
-  
+
         /* 进度条容器样式 */
         #progress-container {
             width: 80%;
@@ -51,7 +51,7 @@
             border-radius: 5px;
             overflow: hidden;
         }
-  
+
         /* 进度条样式 */
         #progress-bar {
             width: 0;
@@ -59,7 +59,7 @@
             background-color: #4caf50;
             transition: width 0.3s;
         }
-  
+
         /* 文本样式 */
         #progress-text {
             text-align: center;
@@ -69,7 +69,7 @@
             font-size: 18px;
         }
   `)
-  
+
     function addMask() {
         const mask = document.createElement('div')
         mask.innerHTML = `
@@ -85,13 +85,13 @@
         `
         document.body.appendChild(mask)
     }
-  
+
     async function callApiSequentially(list, allCount) {
         const overlay = document.getElementById('overlay');
         const total = list.length;
         // 显示遮罩层
         overlay.style.visibility = 'visible';
-  
+
         for (let i = 0; i < total; i++) {
             const item = list[i]
             try {
@@ -101,16 +101,16 @@
             }
             updateProgressBar(i + 1, total, item);
         }
-  
+
         updateProgressBar(total, total, {text: '录入完成', number: allCount});
         setTimeout(() => {
             alert('录入完成，刷新页面！！！')
             overlay.style.visibility = 'hidden';
             window.location.reload()
         }, 500);
-  
+
     }
-  
+
     function updateProgressBar(completed, total, item) {
         const percentage = Math.round((completed / total) * 100);
         const progressBar = document.getElementById('progress-bar');
@@ -122,7 +122,7 @@
         progressCount.textContent = `${completed}/${total}`;
         progressContent.textContent = `${item.text}_${item.number}`;
     }
-  
+
     // 计算数学表达式的函数
     function parseInput(input) {
         const lines = input.split('\n');
@@ -150,7 +150,7 @@
         const urlMatch = inputString.match(/https:\/\/www\.tapd\.cn\/(\d+)\/prong\/stories\/view\/(\d+)/);
         const workId = urlMatch ? urlMatch[1] : null;
         const storyId = urlMatch ? urlMatch[2] : null;
-  
+
         return {
             title,
             storyId,
@@ -162,20 +162,20 @@
         const inputString = document.querySelector('#svn_keyword_new').dataset.clipboardText
         const userMatch = inputString.match(/--user=([^\s]+)/);
         const user = userMatch ? userMatch[1] : null;
-  
+
         return user + ';'
     }
     function jsonToQueryString(json) {
         // 创建一个数组来存储每个键值对
         const queryString = [];
-  
+
         // 递归处理嵌套的对象
         function buildQuery(obj, prefix) {
             for (const key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     const value = obj[key];
                     const prefixedKey = prefix ? `${prefix}[${key}]` : key;
-  
+
                     if (value !== null && typeof value === 'object') {
                         buildQuery(value, prefixedKey);
                     } else {
@@ -184,14 +184,14 @@
                 }
             }
         }
-  
+
         // 开始构建查询字符串
         buildQuery(json, '');
-  
+
         // 将数组中的键值对连接成字符串
         return queryString.join('&');
     }
-  
+
     async function addTask(item) {
         const json = {
             data: {
@@ -205,7 +205,7 @@
             }
         };
         const queryString = jsonToQueryString(json);
-  
+
         const res = await fetch(`https://www.tapd.cn/${workId}/prong/tasks/quick_add_task/${storyId}?is_from_story_view=true`, {
             "headers": {
                 "accept": "text/plain, */*; q=0.01",
@@ -230,37 +230,35 @@
             "credentials": "include"
         });
     }
-  
-  
-  
+
+
+
     function addButton(node) {
         const fields = extractFields()
         title = fields.title
         storyId = fields.storyId
         workId = fields.workId
         user = extractUser()
-  
+
         console.log({title, storyId, workId, user})
          // 在页面上插入一个按钮
         const button = document.createElement('a');
         button.textContent = '文本快速录入';
-  
+
         node.querySelector('.task-quick-aciton-bar').appendChild(button);
-  
+
         // 按钮点击事件
         button.addEventListener('click', () => {
-            if (typeof window.math === 'undefined') {
+            if (typeof unsafeWindow.top.math === 'undefined') {
                 loadScript('https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.2/math.min.js', () => {
                     parseText();
                 });
             } else {
                 parseText();
-  
             }
-  
         });
     }
-  
+
     function calculateDaysAndHours(totalHours) {
           const hoursPerDay = 8;
           const days = Math.floor(totalHours / hoursPerDay);
@@ -270,8 +268,8 @@
               hours: hours
           };
       }
-  
-  
+
+
     function parseText() {
         const input = prompt("请粘贴录入文本", `${title}  2`);
         if (input === null) {
@@ -292,16 +290,15 @@
             parseText()
         }
     }
-  
+
     function loadScript(url, callback) {
-        const script = document.createElement('script');
+        const script = window.top.document.createElement('script');
         script.type = 'text/javascript';
         script.src = url;
         script.onload = callback;
-        document.head.appendChild(script);
+        window.top.document.head.appendChild(script);
     }
-  
-  
+
     function observeElement(selector) {
         const targetNode = document.querySelector(selector);
         if (targetNode) {
@@ -319,7 +316,7 @@
                     });
                 });
             });
-  
+
             observer.observe(document.querySelector('#Tasks_div'), {
                 childList: true,
                 subtree: true
@@ -330,4 +327,3 @@
          observeElement('#div_task_list');
     });
   })();
-  
