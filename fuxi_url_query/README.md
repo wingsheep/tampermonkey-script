@@ -3,8 +3,8 @@
 
 工作负载支持query参数打开指定job&env
 
-jobName -> 任务名称
-env -> 环境
+- jobName -> 任务名称
+- env -> 环境
 
 ## 示例
 ```

@@ -7,3 +7,6 @@
 
 - [微信小程序审核状态推送至企业微信群机器人](./wechat_mini_publish_state_push/README.md)
 
+
+- [伏羲平台（内部）工作负载支持query参数打开指定job&env](./fuxi_url_query/README.md)
+
