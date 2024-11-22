@@ -10,3 +10,7 @@
 
 - [伏羲平台（内部）工作负载支持query参数打开指定job&env](./fuxi_url_query/README.md)
 
+
+
+- [拦截接口快捷搜索支持拼音&env](./quick-search-by-interpected-api//README.md)
+
