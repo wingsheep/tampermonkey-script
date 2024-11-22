@@ -12,5 +12,5 @@
 
 
 
-- [拦截接口快捷搜索支持拼音&env](./quick-search-by-interpected-api//README.md)
+- [拦截接口快捷搜索支持拼音](./quick-search-by-interpected-api//README.md)
 
