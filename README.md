@@ -10,7 +10,7 @@
 
 - [伏羲平台（内部）工作负载支持query参数打开指定job&env](./fuxi_url_query/README.md)
 
-
-
 - [拦截接口快捷搜索支持拼音](./quick-search-by-interpected-api//README.md)
+
+- [Tapd计算当前页面预估总工时](./tapd_calc_total_estimated_working_hours/README.md)
 
