@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Convert Inline Styles to UnoCSS
+// @name         Codesign 支持生成 UnoCss 类名和复制功能
 // @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  将所有内联 style 自动转换为 UnoCSS 类名（使用 transform-to-unocss-core）
-// @author       You
+// @version      0.1
+// @description  Codesign 支持生成 UnoCss 类名和复制功能
+// @author       wingsheep
 // @match        https://codesign.qq.com/app/design/*/board
 // @grant        none
 // ==/UserScript==
